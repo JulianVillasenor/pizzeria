@@ -15,13 +15,14 @@
 #include <iostream>
 #include <vector>
 #include <thread>
+#include <chrono>
 
 #include "hilos.h"
 #include "contexto.h"
 
 // Parámetros por defecto de la simulación.
 // Se pueden ajustar para hacer pruebas con más carga.
-constexpr int NUM_CLIENTES_DEFAULT     = 5; // Número de clientes a simular
+constexpr int NUM_CLIENTES_DEFAULT     = 50; // Número de clientes a simular
 constexpr int NUM_COCINEROS_DEFAULT    = 3; // Número de cocineros (hilos)
 constexpr int NUM_REPARTIDORES_DEFAULT = 2; // Número de repartidores (hilos)
 
@@ -48,6 +49,8 @@ int main() {
     // 4. Crear el vector donde guardaremos los hilos
     std::vector<std::thread> hilos;
 
+    auto inicio = std::chrono::high_resolution_clock::now();
+
     // 4.1 Hilo de TomarPedidos (Integrante 2)
     hilos.emplace_back([&ctx]() {
         hiloTomarPedidos(ctx);
@@ -73,6 +76,9 @@ int main() {
             th.join();
         }
     }
+    auto fin = std::chrono::high_resolution_clock::now();
+    auto tiempoMs = std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio).count();
+    std::cout << "Tiempo total: " << tiempoMs << " ms\n";
 
     // 6. Mostrar estadísticas finales de la simulación
     std::cout << "\n=== Estadisticas finales ===\n";
