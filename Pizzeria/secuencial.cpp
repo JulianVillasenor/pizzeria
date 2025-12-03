@@ -50,16 +50,16 @@ int main() {
         // 1) Llegada del cliente y toma del pedido
         ctx.pedidosGenerados++;
         std::cout << "[Secuencial] Pedido generado: " << p.id_pedido << "\n";
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
         // 2) Hornear la pizza
         std::cout << "[Secuencial] Horneando pedido " << p.id_pedido << "\n";
-        std::this_thread::sleep_for(std::chrono::milliseconds(400));
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
         ctx.pedidosHorneados++;
 
         // 3) Entregar la pizza
         std::cout << "[Secuencial] Entregando pedido " << p.id_pedido << "\n";
-        std::this_thread::sleep_for(std::chrono::milliseconds(300));
+        std::this_thread::sleep_for(std::chrono::milliseconds(150));
         ctx.pedidosEntregados++;
     }
 
